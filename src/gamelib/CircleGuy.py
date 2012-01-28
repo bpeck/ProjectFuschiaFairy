@@ -3,15 +3,14 @@ from pygame.rect import Rect
 from pygame import Surface
 from pygame import draw
 
-from Entity import Entity
+from Actor import Actor
 from InputListener import InputListener
 
 
-class CircleGuy(Entity, InputListener):
+class CircleGuy(Actor, InputListener):
     
     def __init__(self):
-        Entity.__init__(self)
-        
+        Actor.__init__(self, .1)
         self.name = 'CircleGuy'
         self.pos = [100.0, 100.0]
         self.rect = Rect(0,0,50,50)
@@ -24,13 +23,6 @@ class CircleGuy(Entity, InputListener):
     
     def processEvent(self, event, dT):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                self.pos[1] += 1.0
-            if event.key == pygame.K_a:
-                self.pos[0] += -1.0
-            if event.key == pygame.K_s:
-                self.pos[1] += -1.0
-            if event.key == pygame.K_d:
-                self.pos[0] += 1.0
-    
-    
+            self.keyDown(event.key)
+        if event.type == pygame.KEYUP:
+            self.keyUp(event.key)
