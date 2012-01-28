@@ -1,7 +1,7 @@
 class InputListener(object):
     
     def __init__(self):
-        continue
+        pass
     
-    def processEvent(event, dT = 0.0):
-        continue
+    def processEvent(self, event, dT = 0.0):
+        pass

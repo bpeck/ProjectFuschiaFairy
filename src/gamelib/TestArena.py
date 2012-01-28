@@ -1,5 +1,5 @@
 from Arena import Arena
-from Entity import Entity
+from CircleGuy import CircleGuy
 
 class TestArena(Arena):
     
