@@ -10,7 +10,7 @@ import pygame, sys
 from pygame.locals import *
 
 import Variables as variables
-from variables import *
+from Variables import *
 
 from Game import Game
 
