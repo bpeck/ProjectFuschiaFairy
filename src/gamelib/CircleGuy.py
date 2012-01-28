@@ -10,14 +10,16 @@ from InputListener import InputListener
 class CircleGuy(Entity, InputListener):
     
     def __init__(self):
+        Entity.__init__(self)
+        
         self.name = 'CircleGuy'
         self.pos = [100.0, 100.0]
         self.rect = Rect(0,0,50,50)
         
         self.image = Surface(self.rect[2:])
+        self.image.set_colorkey((0,0,0))
         self.image.lock()
-        self.image.fill((255, 255, 255))
-        #draw.circle(self.image, (255,255,255), self.rect.center, self.rect.w, 4)
+        draw.circle(self.image, (255,0,0), self.rect.center, self.rect.w/2, 1)
         self.image.unlock()
     
     def processEvent(self, event, dT):
