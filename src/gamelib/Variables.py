@@ -5,15 +5,13 @@ by Adam Rickert, 2011
 
 #! /usr/bin/env python
 
-import pygame, data
+import pygame
 
 playerJumpHeight = -10
 playerHealth = 3
 playerLives = 3
 
 walkSpeed = 1.4
-
-
 
 #KEYS
 #Set up the key controls for the game

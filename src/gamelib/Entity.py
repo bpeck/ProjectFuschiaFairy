@@ -7,7 +7,7 @@ class Entity(Sprite):
         self.rect = None
         self.image = None
         
-        self.pos = (0.0, 0.0)
+        self.pos = [0.0, 0.0]
     
     def render(self, screen, dT=0.0):
         screen.blit(self.image, (int(self.pos[0]), int(self.pos[1])))
