@@ -14,7 +14,7 @@ from variables import *
 
 from Game import Game
 
-from data import *
+from Data import *
 
 
 def RunGame(screen): #defining the various game states
