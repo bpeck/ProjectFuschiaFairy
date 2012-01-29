@@ -6,6 +6,7 @@ from pygame import draw
 from Entity import Entity
 from InputListener import InputListener
 from NPC import NPC
+from Prey import Prey
 from Data import *
 from Vect2 import Vect2
 
@@ -32,7 +33,7 @@ class MouseEntity(InputListener, Entity):
         self.maxSpeed = 30
         
         self.grabbing = False
-        self.grabDist = 12 # pixel distance within which you can grab something
+        self.grabDist = 15 # pixel distance within which you can grab something
         self.grabbedEntity = None
         
     def processEvent(self, event, dT=0):
@@ -41,8 +42,7 @@ class MouseEntity(InputListener, Entity):
             closest_entity, dist = self.arena.closest[self]
             if isinstance(closest_entity, Prey) and dist <= self.grabDist:
                 self.grab(closest_entity)  
-            else:
-                print str(dist) + " pixels away"
+
         elif event.type == pygame.MOUSEMOTION:
             # center the position at the mouse
             oldPos = self.mouse_pos
