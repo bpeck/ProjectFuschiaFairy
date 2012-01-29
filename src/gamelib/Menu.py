@@ -148,13 +148,17 @@ class Menu():
 
     def __init__(self, screen):
         self.screen = screen
-        self.menu = MenuSetup(["NEW GAME", lambda: RunGame(screen)], ["CONTINUE", lambda: ContinueGame(screen)], ["HELP", lambda: Help(screen)], ["QUIT GAME", sys.exit])
+        self.menu = MenuSetup(["", lambda: RunGame(screen)]
+                              #, ["HELP", lambda: Help(screen)]
+                              #, ["Exit", sys.exit]
+                              )
         
         self.menu.set_highlight_color((255, 0, 0))
         self.menu.set_normal_color((255, 255, 255))
         
         self.menu.center_at(300, 400)
-        self.bg = load_image("menu.png")
+        self.bg = pygame.image.load('data/Background.png')
+        self.bgOverlay = pygame.image.load('data/Title.png')
         
         self.menu.set_font(pygame.font.Font(filepath("fonts/font.ttf"), 16))
         self.font = pygame.font.Font(filepath("fonts/font.ttf"), 16)
@@ -182,17 +186,18 @@ class Menu():
                     return
                 
             self.screen.blit(self.bg, (0, 0))
-            ren = self.font.render("Created For", 1, (255, 255, 255))
-            self.screen.blit(ren, (320-ren.get_width()/2, 70))
+            self.screen.blit(self.bgOverlay, (0, 0))
+        #   ren = self.font.render("Created For", 1, (255, 255, 255))
+        #   self.screen.blit(ren, (320-ren.get_width()/2, 70))
             
-            ren = self.font.render("Global Game Jam 2012", 1, (255, 255, 255))
-            self.screen.blit(ren, (320-ren.get_width()/2, 90))
+        #   ren = self.font.render("Global Game Jam 2012", 1, (255, 255, 255))
+        #   self.screen.blit(ren, (320-ren.get_width()/2, 90))
             
-            ren = self.font.render("By the Fuschia Fairies", 1, (255, 255, 255))
-            self.screen.blit(ren, (320-ren.get_width()/2, 110))
+        #   ren = self.font.render("By the Fuschia Fairies", 1, (255, 255, 255))
+        #    self.screen.blit(ren, (320-ren.get_width()/2, 110))
 
-            ren = self.font2.render("KICKASS!!", 1, (255, 255, 255))
-            self.screen.blit(ren, (320-ren.get_width()/2, 160))
+        #            ren = self.font2.render("KICKASS!!", 1, (255, 255, 255))
+        #    self.screen.blit(ren, (320-ren.get_width()/2, 160))
 #
 #            ren = self.font2.render("POWAH!!", 1, (255, 255, 255))
 #            self.screen.blit(ren, (320-ren.get_width()/2, 235))

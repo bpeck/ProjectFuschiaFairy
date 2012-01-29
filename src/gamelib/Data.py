@@ -23,7 +23,6 @@ def load_image(filename):
     filename = filepath(filename)
     try:
         image = pygame.image.load(filename)
-        image = pygame.transform.scale(image, (image.get_width()*2, image.get_height()*2))
     except pygame.error:
         raise SystemExit, "Unable to load: " + filename
     return image.convert_alpha()

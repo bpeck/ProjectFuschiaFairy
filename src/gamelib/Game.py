@@ -12,7 +12,7 @@ from Arena import Arena
 from TestArena import TestArena
 from Entity import Entity
 from InputListener import InputListener
-
+#from Collision import Collision
 import Variables
 from Variables import *
 from Data import *
@@ -28,8 +28,15 @@ class Game(object):
         
         self.entities = self.currentArea.getInitialEntities()
         self.inputListeners = self.currentArea.getInitialKeyListeners()
+        self.accelerators = self.currentArea.getInitialAccelerators()
         
         self.BG_COLOR = (0,0,0)
+        
+        # le collision detection hack of the centry
+        self.DIST_CUTOFF = 20 # pixels
+        # keys Enity -> [Collision] list of collision objs involving that entity
+        self.collisions = {}
+        self.closest = {}
         
         # logic clock
         self.tick_rate = 30
@@ -53,17 +60,23 @@ class Game(object):
             if self.last_update + self.tick_rate < get_ticks():
                 start_of_frame = get_ticks()
             	#self.screen.fill(self.BG_COLOR)
-                for entity in self.entities:
-                    entity.update(self.tick_rate)
-                    
-                for collision in self.currentArea.findCollisions():
-                  collision[0].collide(collision[1])
-                  collision[1].collide(collision[0])
-                
+                bg = pygame.image.load("data/Background.png")
                 self.screen.blit(bg,[0,0])
-                for entity in self.entities:
-                    entity.render(self.screen)
                 
-               # print get_ticks()-start_of_frame, "ms"
-            	pygame.display.update()
+                # update the arena  - doesnt do anything
+                #self.currentArea.update(self.tick_rate)
+                
+                # update logic
+                for entity in self.entities:
+                    self.currentArea.collisionDetect(entity, self.tick_rate)
+                    entity.update(self.tick_rate)
+                    entity.render(self.screen)
+
+                # exert attract/repulse forces - this is shitty
+                #self.currentArea.doAccelerators()
+
                 self.last_update = get_ticks()
+                
+            pygame.display.update()
+            
+            	

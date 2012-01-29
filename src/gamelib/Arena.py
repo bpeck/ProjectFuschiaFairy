@@ -6,19 +6,41 @@ class Arena(object):
     def __init__(self):
         self.entities = []
         self.keyListeners = []
+        self.accelerators = []
+        
+        self.collisions = {}
+        self.closest = {}
     
-    def findCollisions(self):
-        collisions = []
-        for i in self.entities:
-            if not i.collides: continue
-            for j in self.entities:
-                if not j.collides or i==j: continue
-                if i.pos.distance_squared(j.pos) < (i.radius+j.radius)**2:
-                    collisions.append((i, j))
-        return collisions
+    def collisionDetect(self, entity, dT = 0.0):
+        if not entity.collides:
+            return
+        self.collisions[entity] = None
+        self.closest[entity] = None
+
+        minDist = 99999.0
+        
+        for other in self.entities:
+            if not other.collides or other == entity:
+                continue
+                
+            dist = entity.pos.distance(other.pos)
+            
+            if dist < minDist:
+                minDist = dist
+                self.closest[entity] = (other, dist)
+                if dist < entity.radius:
+                    self.collisions[entity] = (other, dist)
+    
+    def doAccelerators(self):
+        for a in self.accelerators:
+            for e in self.entities:
+                a.affectEntity(e)
     
     def getInitialEntities(self):
         return 
     
     def getInitialKeyListeners(self):
+        return []
+    
+    def getInitialAccelerators(self):
         return []

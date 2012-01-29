@@ -27,19 +27,22 @@ class Vect2:
         return self.d == v.d
  
     def magnitude_squared(self):
-        return self.d[0]**2 + self.d[1]**2
+        return self.d[0]**2.0 + self.d[1]**2.0
 
     def magnitude(self):
         return math.sqrt(self.magnitude_squared())
     
     def distance(self, v):
-        return math.sqrt(self.distance_squared(v))
-        
+        return (v-self).magnitude()
+    
     def distance_squared(self, v):
         return (v-self).magnitude_squared()
-         
-    def normalize(self, length=1):
+    
+    def normalize(self, length=1.0):
         return self/self.magnitude() * length
+
+    def perp(self):
+        return Vect2([-self.d[1], self.d[0]])
 
     def tuple(self): return tuple(self.d)
         

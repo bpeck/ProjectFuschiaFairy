@@ -19,6 +19,7 @@ class CircleGuy(Entity, InputListener):
         self.keys = [False]*512
         
         self.image = pygame.image.load("data/keyPlayer.png")
+        self.radius = self.image.get_rect().width/2
        # self.image.set_colorkey((0,0,0))
       #  self.image.lock()
        # draw.circle(self.image, (255,0,0), self.rect.center, self.rect.w/2, 1)
@@ -28,6 +29,8 @@ class CircleGuy(Entity, InputListener):
         self.speed = 1.5
         self.maxSpeed = 5.0
         self.drag  = 0.95
+        
+        self.radius = float(self.image.get_width()) / 2.0
     
     def processEvent(self, event, dT=0):
         if event.type == pygame.KEYDOWN:
