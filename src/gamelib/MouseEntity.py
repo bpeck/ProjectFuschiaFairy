@@ -26,7 +26,7 @@ class MouseEntity(InputListener, Entity):
         self.image = self.origImage
         self.radius = self.image.get_rect().width/2
         print self.radius
-        self.rotate = 45
+        self.rotate = 0
 
         self.radius = float(self.image.get_width()) / 2.0
 
