@@ -38,7 +38,6 @@ class Game(object):
     
     def gameLoop(self):
         while not self.done:
-            print get_ticks()
             for e in pygame.event.get():
                 if e.type == QUIT:
                     print 'pygame QUIT event received, bailing.'

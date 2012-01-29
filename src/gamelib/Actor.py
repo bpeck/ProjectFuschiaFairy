@@ -8,10 +8,10 @@ from Vect2 import Vect2
 class Actor(Entity):
 
     def __init__(self, baseSpeed):
-        self.keys = [False]*128
+        self.keys = [False]*512
         self.baseSpeed = baseSpeed
         self.velocity = Vect2((0, 0))
-        self.maxSpeed = 3
+        self.maxSpeed = 6
 
     def keyDown(self, k):
         self.keys[k] = True
@@ -19,8 +19,7 @@ class Actor(Entity):
         self.keys[k] = False
     
     def update(self,DT):
-	self.pos[0] += 1.0
-	return 
+	    # accelerate
         if self.keys[pygame.K_w]:
             self.velocity[1] += -self.baseSpeed
         if self.keys[pygame.K_a]:
@@ -29,12 +28,18 @@ class Actor(Entity):
             self.velocity[1] += self.baseSpeed
         if self.keys[pygame.K_d]:
             self.velocity[0] += self.baseSpeed
-#        if self.velocity.magnitude() > self.maxSpeed:
-#          self.velocity = self.velocity.normalize(self.maxSpeed)
+			
+	    # cap speed
+        if self.velocity.magnitude() > self.maxSpeed:
+          self.velocity = self.velocity.normalize(self.maxSpeed)
 
-        #self.velocity *= 0.999
+		# inertia
+        self.velocity *= 0.9
+		
+		# motion
         self.pos += self.velocity
-        #print self.velocity
+		
+		# wrap around the playfield
         if self.pos[0] > 640:
             self.pos[0] = 0
         if self.pos[0] < 0:
@@ -43,17 +48,3 @@ class Actor(Entity):
             self.pos[1] = 0
         if self.pos[1] < 0:
             self.pos[1] = 480
-"""        if self.yMod > 0:
-            self.yMod -= .05
-        if self.yMod < 0:
-            self.yMod += .05
-
-#	if self.kd != 'a' or self.kd != 'd':
-        if self.xMod > 0:
-            self.xMod -= .05
-        if self.xMod < 0:
-            self.xMod += .05
-
-"""
-
-

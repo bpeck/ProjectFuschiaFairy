@@ -10,7 +10,7 @@ from Vect2 import Vect2
 class CircleGuy(Actor, InputListener):
     
     def __init__(self):
-        Actor.__init__(self, 1)
+        Actor.__init__(self, 0.5)
         self.name = 'CircleGuy'
         self.pos = Vect2((100.0, 100.0))
         self.rect = Rect(0,0,50,50)
