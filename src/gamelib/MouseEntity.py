@@ -23,7 +23,7 @@ class MouseEntity(Entity, InputListener):
         self.pos = [0.0,0.0]
        # self.pos[0] = -self.rect.center[0]
        # self.pos[1] = -self.rect.center[1]
-        
+        self.mouse_pos = Vect2((0, 0))
         self.image = pygame.image.load('data/mousePlayer.png')
        # self.image.set_colorkey((0,0,0))
        # self.image.lock()
@@ -35,6 +35,7 @@ class MouseEntity(Entity, InputListener):
             # center the position at the mouse
             self.pos[0] = event.pos[0] - self.image.get_rect().center[0]
             self.pos[1] = event.pos[1] - self.image.get_rect().center[1]
+            self.mouse_pos = Vect2(event.pos)
     
     
 
