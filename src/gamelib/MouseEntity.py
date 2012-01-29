@@ -9,7 +9,7 @@ from InputListener import InputListener
 from Vect2 import Vect2
 
 class MouseEntity(InputListener, Accelerator):
-    
+
     def __init__(self):
         Accelerator.__init__(self, 5.0, 0.0, 4.0)
         self.name = 'MouseEntity'
@@ -23,4 +23,4 @@ class MouseEntity(InputListener, Accelerator):
             self.mouse_pos = Vect2(event.pos) - self.mouseOffset
     
     def update(self, dT=0):
-        self.pos = self.mouse_pos
+        self.pos = self.pos*0.9 + self.mouse_pos*0.1
