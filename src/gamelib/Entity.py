@@ -14,7 +14,9 @@ class Entity(Sprite):
         self.acc = Vect2([0.0, 0.0])
         self.maxSpeed = -1
         self.drag = 1
-        
+    
+    def update(self): self.move()
+    
     def move(self):
         self.vel += self.acc
         if self.maxSpeed != -1 and self.vel.magnitude() > self.maxSpeed:
