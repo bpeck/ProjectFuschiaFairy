@@ -18,6 +18,8 @@ class Entity(Sprite):
         
         self.radius = 0
         self.collides = True
+        
+        self.entity = None
     
     def update(self, dT=0.0):
         self.move()

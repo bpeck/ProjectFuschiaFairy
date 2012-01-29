@@ -64,6 +64,6 @@ class Game(object):
                 for entity in self.entities:
                     entity.render(self.screen)
                 
-                print get_ticks()-start_of_frame, "ms"
+                #print get_ticks()-start_of_frame, "ms"
             	pygame.display.update()
                 self.last_update = get_ticks()
