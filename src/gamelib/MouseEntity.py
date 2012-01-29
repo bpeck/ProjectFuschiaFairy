@@ -4,18 +4,19 @@ from pygame import Surface
 from pygame import draw
 
 from Entity import Entity
+from Accelerator import Accelerator
 from InputListener import InputListener
+
 
 from Data import *
 
-
+1f
 from Vect2 import Vect2
 
+class MouseEntity(InputListener, Accelerator):
 
-class MouseEntity(Entity, InputListener):
-    
     def __init__(self):
-        Entity.__init__(self)
+        Accelerator.__init__(self, 5.0, 0.0, 4.0)
         self.name = 'MouseEntity'
         self.mouse_pos = Vect2([0.0, 0.0])
         self.origImage = pygame.image.load('data/mousePlayer.png')
@@ -42,10 +43,13 @@ class MouseEntity(Entity, InputListener):
             #rImage = rImage.subsurface(rRect).copy()
             #self.image = rImage
     def update(self, dT=0):
+
             #c = self.image.get_rect().center
             self.image = pygame.transform.rotate(self.origImage,self.rotate)
             #self.image.get_rect().center = c
             self.rotate += 90
             if self.rotate > 360:
                 self.rotate = 0
-            self.pos = self.mouse_pos
+            #smoothing 
+            self.pos = self.pos*0.9 + self.mouse_pos*0.1
+
