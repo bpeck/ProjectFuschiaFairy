@@ -1,9 +1,7 @@
 from NPC import NPC
 from Vect2 import Vect2
 import pygame, time
-import Variables
-
-import Variables as Variables
+from Prey import Prey
 from Variables import *
 
 
@@ -29,9 +27,18 @@ class Predator(NPC):
         self.rotate = 0.0
         self.radius = self.image.get_rect().width/2
     
+    def collide(self):
+        for collision in self.arena.collisions[self]:
+            entity, dist = collision
+            if isinstance(entity, Prey):
+                self.lifeSpan += 2000
+            if isinstance(entity, Predator):
+                self.displace(self, dist)
+    
     def update(self, dT):
-        for entity, dist in self.arena.collisions[self]:
-            if isinstance(entity, Predator): self.displace(entity, dist)
+        
+        self.collide()
+        
         #slow die
         cImg = self.origImage
         if time.time() - self.birth > Variables.PredatorLS:

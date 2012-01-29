@@ -15,7 +15,11 @@ class Prey(NPC):
         self.radius = self.image.get_rect().width/2
         self.lifeSpan = 30 * len(self.deathAnim)
         
-        
+    def collide(self):
+        for collision in self.arena.collisions[self]:
+            entity, dist = collision
+            if isinstance(entity, Predator):
+                self.iDie = 1
     
     def update(self, dT):
         for entity, dist in self.arena.collisions[self]:
