@@ -15,7 +15,7 @@ from Util import clamp, clampAmp
 
 class NPC(Entity):
     
-    WANDER, GOAL, NUM_NPC_BEHAVIORS = range(3)
+    THROWN, WANDER, GOAL, NUM_NPC_BEHAVIORS = range(4)
 
     def __init__(self, size, position, maxRotVel, maxRotAcc):
         Entity.__init__(self)
@@ -39,6 +39,8 @@ class NPC(Entity):
         self.origImage = pygame.image.load('data/Prey-02.png')      
         self.image = self.origImage 
         self.radius = float(self.origImage.get_width()) / 2.0
+        
+        self.grabbedBy = None
         
         self.goal = Vect2([320.0, 240.0]) # cn be Vect2 or Entity
         self.forceGoal = False # won't stop going towards goal until it gets there
@@ -117,7 +119,14 @@ class NPC(Entity):
                 else:
                     self.behavior = NPC.WANDER
                     self.behaviorCounter = 2000
-        
+        elif self.behavior == NPC.THROWN:
+            self.maxSpeed = 20.0
+            if self.behaviorCounter < 0:
+                self.maxSpeed = 3.25
+                self.acc = Vect2([0.0,0.0])
+                self.behavior = NPC.WANDER
+                self.behaviorCounter = 2000 
+            
         Entity.move(self)
         
         self.collide(dT)

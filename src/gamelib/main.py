@@ -21,7 +21,7 @@ def main():
     #pygame.mixer.pre_init(44100, -16, 2, 4096)
     
     pygame.init()
-    pygame.mouse.set_visible(0)
+    #pygame.mouse.set_visible(0)
     #set the program icon on the pygame window to my own custom sprite
     #pygame.display.set_icon(pygame.image.load(data.filepath("bowser1.gif")))
     pygame.display.set_caption("GGJ 2012 - Fuschia Fairies")

@@ -4,23 +4,19 @@ from pygame import Surface
 from pygame import draw
 
 from Entity import Entity
-from Accelerator import Accelerator
 from InputListener import InputListener
-
+from NPC import NPC
 from Data import *
 from Vect2 import Vect2
 
-class MouseEntity(InputListener, Accelerator):
+class MouseEntity(InputListener, Entity):
 
     def __init__(self):
-        Accelerator.__init__(self, 5.0, 0.0, 4.0)
+        Entity.__init__(self)
         self.name = 'MouseEntity'
         self.mouse_pos = Vect2([0.0, 0.0])
         self.origImage = pygame.image.load('data/mousePlayer.png')
-
         self.image =  self.origImage
-        self.mouseOffset = Vect2(self.image.get_rect().center)
-
         self.imgState = 0
         self.image1 = pygame.image.load('data/mousePlayer_1.png')
         self.image2 = pygame.image.load('data/mousePlayer_2.png')
@@ -31,27 +27,34 @@ class MouseEntity(InputListener, Accelerator):
         print self.radius
         self.rotate = 45
 
-
         self.radius = float(self.image.get_width()) / 2.0
 
         self.maxSpeed = 30
         
         self.grabbing = False
-        self.grabbed_entity = None
+        self.grabDist = 12 # pixel distance within which you can grab something
+        self.grabbedEntity = None
         
     def processEvent(self, event, dT=0):
-
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.imgState = 1
-        if event.type == pygame.MOUSEMOTION:
+            closest_entity, dist = self.arena.closest[self]
+            if isinstance(closest_entity, NPC) and dist <= self.grabDist:
+                self.grab(closest_entity)  
+            else:
+                print str(dist) + " pixels away"
+        elif event.type == pygame.MOUSEMOTION:
             # center the position at the mouse
             oldPos = self.mouse_pos
-            self.mouse_pos = Vect2(event.pos) - self.mouseOffset
-        if event.type == pygame.MOUSEBUTTONUP:
+            self.mouse_pos = Vect2(event.pos)
+        elif event.type == pygame.MOUSEBUTTONUP:
             self.imgState = 0
             self.image = self.origImage
+            if self.grabbedEntity:
+                self.release()
             
-    def bite(self):
+            
+    def biteAnim(self):
         if self.imgState == 1:
             self.image = self.image1
             self.imgState += 1
@@ -61,34 +64,28 @@ class MouseEntity(InputListener, Accelerator):
         if self.imgState == 3:
             self.image = self.image3
  
-
+    def grab(self, entity):
+        entity.grabbedBy = self
+        self.grabbedEntity = entity
+        self.grabbing = True
+    
+    def release(self):
+        self.grabbedEntity.grabbedBy = None
+        print 'release vel ' + str(self.vel)
+        self.grabbedEntity.acc = self.vel * 4.0
+        self.grabbedEntity.behavior = NPC.THROWN
+        self.grabbedEntity.behaviorCounter = 700
+        self.grabbedEntity = None
             
     def update(self, dT=0):
             if self.imgState > 0:
-                self.bite()
-            #c = self.image.get_rect().center
-            #self.image = pygame.transform.rotate(self.origImage,self.rotate)
-            #self.image.get_rect().center = c
-            #self.rotate += 3
-            #if self.rotate > 360: self.rotate -= 360
+                self.biteAnim()
+
+            self.vel = (self.mouse_pos-self.pos)/5.0
                 
-            #smoothing 
-            self.vel = (self.mouse_pos-self.pos)/10
             self.move()
             
-            if self.grabbing and not self.grabbed_entity:
-                closest = None
-                closest_distance = 0
-                for e in self.arena.entities:
-                    if e == self: continue
-                    distance = e.pos.distance_squared(self.pos)
-                    if not closest or distance < closest_distance:
-                        closest = e
-                        closest_distance = distance
-                self.grabbed_entity = closest
-            if not self.grabbing and self.grabbed_entity:
-                self.grabbed_entity.vel = self.vel
-                self.grabbed_entity = None
-            if self.grabbed_entity:
-                print self.grabbed_entity.pos
-                self.grabbed_entity.pos = self.pos
+            if self.grabbedEntity:
+                print self.grabbedEntity.pos
+                print self.pos
+                print ''
