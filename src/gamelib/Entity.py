@@ -5,7 +5,9 @@ from Vect2 import Vect2
 
 class Entity(Sprite):
 
-    def __init__(self):
+    def __init__(self, parentArena):
+        self.arena = parentArena
+        
         self.rect = None
         self.image = None
         
