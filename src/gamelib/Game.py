@@ -32,15 +32,13 @@ class Game(object):
         
         # logic clock
         self.tick_rate = 50
-        self.last_update = get_ticks()
-        
+        self.last_update = 0
         print 'Entering game loop'
         self.gameLoop()
     
     def gameLoop(self):
-    
         while not self.done:
-
+            print get_ticks()
             for e in pygame.event.get():
                 if e.type == QUIT:
                     print 'pygame QUIT event received, bailing.'
@@ -51,7 +49,7 @@ class Game(object):
                     for listener in self.inputListeners:
                         listener.processEvent(e)
 
-            if self.last_update + self.tick_rate > get_ticks():
+            if self.last_update + self.tick_rate < get_ticks():
             	self.screen.fill(self.BG_COLOR)
                 for entity in self.entities:
                     entity.update(self.tick_rate)
