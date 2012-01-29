@@ -13,14 +13,14 @@ from Vect2 import Vect2
 from Util import clamp, clampAmp
 
 
-class Foodie(Entity):
+class NPC(Entity):
     
-    WANDER, GOAL, NUM_FOODIE_BEHAVIORS = range(3)
+    WANDER, GOAL, NUM_NPC_BEHAVIORS = range(3)
 
     def __init__(self, size, position, maxRotVel, maxRotAcc):
         Entity.__init__(self)
         
-        self.name = 'CircleGuy'
+        self.name = 'NPC'
 
         self.rotate = 0
         self.rot = 0 # radians
@@ -38,11 +38,11 @@ class Foodie(Entity):
         self.rect = Rect(0,0,size,size)
         self.origImage = pygame.image.load('data/Prey-02.png')      
         self.image = self.origImage 
-        self.radius = float(origImage.get_width()) / 2.0
+        self.radius = float(self.origImage.get_width()) / 2.0
         
         self.goal = Vect2([320.0, 240.0]) # cn be Vect2 or Entity
         self.forceGoal = False # won't stop going towards goal until it gets there
-        self.behavior = Foodie.WANDER
+        self.behavior = NPC.WANDER
         self.behaviorCounter = 1000
     
     def collide(self, dT):
@@ -99,23 +99,23 @@ class Foodie(Entity):
     def update(self, dT):
         self.behaviorCounter -= dT
         
-        if self.behavior == Foodie.WANDER:
+        if self.behavior == NPC.WANDER:
             self.wander(dT)
             if self.behaviorCounter < 0:
-                self.behavior = Foodie.WANDER
+                self.behavior = NPC.WANDER
                 self.behaviorCounter = 3000
-        elif self.behavior == Foodie.GOAL:
+        elif self.behavior == NPC.GOAL:
             atGoal = self.goTowardsGoal(dT)
             if atGoal:
-                self.behavior = Foodie.WANDER
+                self.behavior = NPC.WANDER
                 self.behaviorCounter = 500
             # if counter expires either keep chasing goal or start wandering
             if self.behaviorCounter < 0:
                 if self.forceGoal:
-                    self.behavior = Foodie.GOAL
+                    self.behavior = NPC.GOAL
                     self.behaviorCounter = 2000
                 else:
-                    self.behavior = Foodie.WANDER
+                    self.behavior = NPC.WANDER
                     self.behaviorCounter = 2000
         
         Entity.move(self)
@@ -142,6 +142,6 @@ class Foodie(Entity):
             self.goal = Vect2([320.00, 240.0])
             self.forceGoal = False
             self.behaviorCounter = 1500
-            self.behavior = Foodie.GOAL
+            self.behavior = NPC.GOAL
         
 

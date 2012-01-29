@@ -5,8 +5,8 @@ import pygame
 from Arena import Arena
 from CircleGuy import CircleGuy
 from MouseEntity import MouseEntity
-from Foodie import Foodie
-from Eater import Eater
+from Predator import Predator
+from Prey import Prey
 
 import Variables as Variables
 from Variables import *
@@ -14,16 +14,16 @@ from Variables import *
 class TestArena(Arena):
     
 
-    def __init__(self, screen currentLevel):
+    def __init__(self, screen, currentLevel):
         Arena.__init__(self)
         
 
         self.entities = []
         self.keyListeners = []
         self.accelerators = []
-        self.foodies = []
+        self.npcs = []
         
-        # on a timer, we reset which foodies emit attractive and repulsive forces
+        # on a timer, we reset which npc emit attractive and repulsive forces
         self.foodieAcceleratorReset = 5000 # ms
         # this counter is incremented and reset on each repopulation
         self.foodieAcceleratorResetTimer = 0
@@ -31,7 +31,7 @@ class TestArena(Arena):
         # become an accelerator on this reset
         self.foodieAcceleratorResetDice = 5
     
-        # init foodies
+        # init npcs
         
         maxSize = 50.0
         minSize = 6.0
@@ -39,41 +39,27 @@ class TestArena(Arena):
         screenW = float(screen.get_width())
         screenH = float(screen.get_height())
         
+        # rotation accel rates
+        maxRotVel = math.pi / 20.0
+        maxRotAcc = math.pi / 40.0
 
         for i in range(Variables.lvlFoodCount[currentLevel]):
-
             size = minSize + random.random() * (maxSize - minSize)
-            
-            # initial position
             pos = [0.0,0.0]
             pos[0] += int(random.random() * screenW)
-            pos[1] += int(random.random() * screenH)
+            pos[1] += int(random.random() * screenH)            
+            prey = Prey(size, pos, maxRotVel, maxRotAcc)
 
-            foodie = Foodie(size, pos)
-
-            
-            # color of Foodie
-            color = pygame.Color(255,0,0)
-            hslaC = color.hsla
-            color.hsla = (int(random.random() * 360.0), hslaC[1], hslaC[2], hslaC[3])
-            
-            # rotation accel rates
-            maxRotVel = math.pi / 20.0
-            maxRotAcc = math.pi / 40.0
-            
-            foodie = Foodie(size, pos, maxRotVel, maxRotAcc)
-
-            self.entities.append(foodie)
+            self.entities.append(prey)
 
         for i in range(Variables.lvlEaterCount[currentLevel]):
             size = minSize + random.random() * (maxSize - minSize)
             pos = [0.0,0.0]
             pos[0] += int(random.random() * screenW)
             pos[1] += int(random.random() * screenH)
-            pos[0] += int(random.random() * screenW)
-            eater = Eater(size, pos)
-            self.entities.append(eater)
+            predator = Predator(size, pos, maxRotVel, maxRotAcc)
             
+            self.entities.append(predator)
         
         # init players
         c = CircleGuy()
