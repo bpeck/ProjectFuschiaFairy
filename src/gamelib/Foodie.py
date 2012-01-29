@@ -15,7 +15,7 @@ from Util import clamp, clampAmp
 
 class Foodie(Entity):
     
-    WANDER, GOAL, CHASE, RUN, NUMBEHAVIORS = range(5)
+    WANDER, GOAL, NUM_FOODIE_BEHAVIORS = range(3)
     
     def __init__(self, size, color, position, maxRotVel, maxRotAcc):
         Entity.__init__(self)
@@ -113,7 +113,7 @@ class Foodie(Entity):
             if atGoal:
                 self.behavior = Foodie.WANDER
                 self.behaviorCounter = 500
-            # if counter expires and still not at goal, keep going after it
+            # if counter expires either keep chasing goal or start wandering
             if self.behaviorCounter < 0:
                 if self.forceGoal:
                     self.behavior = Foodie.GOAL
