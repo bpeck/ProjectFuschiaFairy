@@ -14,8 +14,10 @@ from Util import clamp, clampAmp
 
 
 class Foodie(Entity):
+<<<<<<< HEAD
 
     WANDER, GOALPT, CHASE, RUN, NUMBEHAVIORS = range(5)
+
     
     def __init__(self, size, position, maxRotVel, maxRotAcc):
 
@@ -80,7 +82,8 @@ class Foodie(Entity):
         self.image.unlock()
         self.radius = float(size) / 2.0
         
-        self.goalPt = Vect2([320.0, 240.0])
+        self.goal = Vect2([320.0, 240.0]) # cn be Vect2 or Entity
+        self.forceGoal = False # won't stop going towards goal until it gets there
         self.behavior = Foodie.WANDER
         self.behaviorCounter = 1000
     
@@ -98,10 +101,23 @@ class Foodie(Entity):
             self.vel = bounceAngle * self.vel.magnitude()
     
     # behavior that is called in update
-    def goTowardsPt(self, dT):
-        pass
+    def goTowardsGoal(self, dT):
+        if isinstance(self.goal, Vect2):
+            goalDir = self.goal - self.pos
+        else: # assume it's an entity then
+            goalDir = self.goal.pos - self.pos
+        dist = goalDir.magnitude()
+            
+        # return true if we reached goal
+        if dist < 2.0:
+            return True
+        goalDir.normalize(1.0)
+        # otherwise accelerate towards goal
+        self.acc[0] = goalDir[0] * 2.0
+        self.acc[1] = goalDir[1] * 2.0
+        return False
     
-    
+    # behavior that is called in update
     def wander(self, dT):
         # update the rotation acc by random amount
         self.rotAcc = clampAmp(-self.maxRotAcc + \
@@ -130,26 +146,44 @@ class Foodie(Entity):
             if self.behaviorCounter < 0:
                 self.behavior = Foodie.WANDER
                 self.behaviorCounter = 3000
-        elif self.behavior == Foodie.GOALPT:
-            self.goTowardsPt(dT)
+        elif self.behavior == Foodie.GOAL:
+            atGoal = self.goTowardsGoal(dT)
+            if atGoal:
+                self.behavior = Foodie.WANDER
+                self.behaviorCounter = 500
+            # if counter expires and still not at goal, keep going after it
+            if self.behaviorCounter < 0:
+                if self.forceGoal:
+                    self.behavior = Foodie.GOAL
+                    self.behaviorCounter = 2000
+                else:
+                    self.behavior = Foodie.WANDER
+                    self.behaviorCounter = 2000
         
         Entity.move(self)
         
         self.collide(dT)
         
         halfW = int(float(self.rect.w) / 2.0)
+        wrapped = False
         if self.pos[0] + halfW > 640:
             self.pos[0] = 0
-            self.vel[0] *= 2.0
+            wrapped = True
         if self.pos[0] + halfW < 0:
             self.pos[0] = 640
-            self.vel[0] *=2.0
+            wrapped = True
         halfH = int(float(self.rect.h) / 2.0)
         if self.pos[1] + halfH > 480:
             self.pos[1] = 0
-            self.vel[1] *= 2.0
+            wrapped = True
         if self.pos[1] + halfH < 0:
             self.pos[1] = 480
-            self.vel[1] *= 2.0
+            wrapped = True
+        if wrapped:
+            # go towards middle of screen for a bit
+            self.goal = Vect2([320.00, 240.0])
+            self.forceGoal = False
+            self.behaviorCounter = 1500
+            self.behavior = Foodie.GOAL
         
 

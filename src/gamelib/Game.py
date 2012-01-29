@@ -12,7 +12,9 @@ from Arena import Arena
 from TestArena import TestArena
 from Entity import Entity
 from InputListener import InputListener
+
 #from Collision import Collision
+
 import Variables
 from Variables import *
 from Data import *
