@@ -12,14 +12,17 @@ class Entity(Sprite):
         self.pos = Vect2([0.0, 0.0])
         self.vel = Vect2([0.0, 0.0])
         self.acc = Vect2([0.0, 0.0])
-        self.maxSpeed = -1
-        self.drag = 1
+        self.maxSpeed = 1.0
+        self.drag = 1.0
+        
+        self.collideable = False
     
-    def update(self, dT=0): self.move()
+    def update(self, dT=0.0):
+        self.move()
     
-    def move(self):
+    def move(self, dT=0.0):
         self.vel += self.acc
-        if self.maxSpeed != -1 and self.vel.magnitude() > self.maxSpeed:
+        if self.vel.magnitude() > self.maxSpeed:
           self.vel = self.vel.normalize(self.maxSpeed)
         self.vel *= self.drag
         self.pos += self.vel

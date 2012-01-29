@@ -23,7 +23,7 @@ class Game(object):
     
         self.done = False
         
-        self.currentArea = TestArena()
+        self.currentArea = TestArena(screen)
         
         self.entities = self.currentArea.getInitialEntities()
         self.inputListeners = self.currentArea.getInitialKeyListeners()
