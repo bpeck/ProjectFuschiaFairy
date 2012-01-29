@@ -51,7 +51,6 @@ class Predator(NPC):
         #slow die
         cImg = self.origImage
         if time.time() - self.birth > Variables.PredatorLS:
-
             if self.dieLvl == len(self.dieImg)-1:
                 self.iDied = 1
             else:
@@ -60,35 +59,27 @@ class Predator(NPC):
             cImg = self.dieImg[self.dieLvl]
             
         NPC.update(self, dT)
-        self.rotate += 7.5
-        if self.rotate >= 345:
-            self.rotate = 0
         old = Vect2(self.image.get_rect().center)
         rot_image = pygame.transform.rotate(cImg, self.rotate)
         self.image = rot_image
         new = Vect2(rot_image.get_rect().center)
         self.pos = self.pos-(new-old)
-        self.lifeSpan -= dT
-        if self.lifeSpan < 0:
-            self.lifeSpan = 10000
+        
+        self.rotate += 7.5
+        if self.rotate >= 345:
+            self.rotate = 0
 
             #begin death animation
             x =1
         if not self.grabbedBy:
             NPC.update(self, dT)
             
-            self.rotate += 15
-            if self.rotate >= 345:
-                self.rotate = 0
             old = Vect2(self.image.get_rect().center)
-            rot_image = pygame.transform.rotate(self.origImage, self.rotate)
+            rot_image = pygame.transform.rotate(cImg, self.rotate)
             self.image = rot_image
             new = Vect2(rot_image.get_rect().center)
             self.pos = self.pos-(new-old)
-            
-            self.lifeSpan -= dT
-            if self.lifeSpan < 0:
-                self.lifeSpan = 10000
+
         else:
             self.pos = self.grabbedBy.pos
 
