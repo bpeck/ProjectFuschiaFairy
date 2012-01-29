@@ -4,6 +4,7 @@ import pygame
 class Prey(NPC):
     
     def __init__(self, size, position, maxRotVel, maxRotAcc, a):
+       
         NPC.__init__(self, size, position, maxRotVel, maxRotAcc, a)
         
         self.name = 'Prey'
@@ -19,13 +20,15 @@ class Prey(NPC):
     def collide(self):
         for collision in self.arena.collisions[self]:
             entity, dist = collision
-            if isinstance(entity, Predator):
-                self.iDie = 1
+            if entity.name == 'Predator':
+                self.iDied = 1
+            
+            if entity.name == 'Prey':
+                self.displace(entity, dist)
     
     def update(self, dT):
-        for entity, dist in self.arena.collisions[self]:
-            if isinstance(entity, Prey): self.displace(entity, dist)
         if not self.grabbedBy:
+            self.collide()
             NPC.update(self, dT)
         else:
             self.pos = self.grabbedBy.pos
