@@ -22,6 +22,8 @@ class MouseEntity(InputListener, Entity):
         self.image1 = pygame.image.load('data/mousePlayer_1.png')
         self.image2 = pygame.image.load('data/mousePlayer_2.png')
         self.image3 = pygame.image.load('data/mousePlayer_3.png')
+        self.grabsound = pygame.mixer.Sound('data/grab.wav')
+        self.dropsound = pygame.mixer.Sound('data/drop.wav')
 
         self.image = self.origImage
         self.radius = self.image.get_rect().width/2
@@ -65,11 +67,13 @@ class MouseEntity(InputListener, Entity):
             self.image = self.image3
  
     def grab(self, entity):
+        self.grabsound.play()
         entity.grabbedBy = self
         self.grabbedEntity = entity
         self.grabbing = True
     
     def release(self):
+        self.dropsound.play()
         self.grabbedEntity.grabbedBy = None
         self.grabbedEntity.maxSpeed = 50.0
         self.grabbedEntity.drag = 0.2
