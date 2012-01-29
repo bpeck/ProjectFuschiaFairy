@@ -7,6 +7,16 @@ class Arena(object):
         self.entities = []
         self.keyListeners = []
     
+    def findCollisions(self):
+        collisions = []
+        for i in self.entities:
+            if not i.collides: continue
+            for j in self.entities:
+                if not j.collides or i==j: continue
+                if i.pos.distance(j.pos) < i.radius+j.radius:
+                    collisions.append((i, j))
+        return collisions
+    
     def getInitialEntities(self):
         return 
     

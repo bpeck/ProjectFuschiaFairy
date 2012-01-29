@@ -24,7 +24,7 @@ class Game(object):
     
         self.done = False
         
-        self.currentArea = TestArena()
+        self.currentArea = TestArena(screen)
         
         self.entities = self.currentArea.getInitialEntities()
         self.inputListeners = self.currentArea.getInitialKeyListeners()
@@ -55,6 +55,12 @@ class Game(object):
                 self.screen.blit(bg,[0,0])
                 for entity in self.entities:
                     entity.update(self.tick_rate)
+                    
+                for collision in self.currentArea.findCollisions():
+                  collision[0].collide(collision[1])
+                  collision[1].collide(collision[0])
+                
+                for entity in self.entities:
                     entity.render(self.screen)
                 
                 pygame.display.update()
