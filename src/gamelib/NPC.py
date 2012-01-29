@@ -150,7 +150,7 @@ class NPC(Entity):
             # go towards middle of screen for a bit
             self.goal = Vect2([320.00, 240.0])
             self.forceGoal = False
-            self.behaviorCounter = 1500
+            self.behaviorCounter = 1000
             self.behavior = NPC.GOAL
         
 
