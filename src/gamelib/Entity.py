@@ -8,7 +8,7 @@ class Entity(Sprite):
     def __init__(self):
         self.rect = None
         self.image = None
-        
+        self.iDied = 0
         self.pos = Vect2([0.0, 0.0])
         self.vel = Vect2([0.0, 0.0])
         self.acc = Vect2([0.0, 0.0])

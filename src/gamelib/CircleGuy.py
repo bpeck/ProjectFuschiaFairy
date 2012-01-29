@@ -13,12 +13,13 @@ class CircleGuy(Entity, InputListener):
         Entity.__init__(self)
         self.name = 'CircleGuy'
         self.pos = Vect2((100.0, 100.0))
-
+        self.rotate =0.0
        # self.rect = Rect(0,0,50,50)
         
         self.keys = [False]*512
         
-        self.image = pygame.image.load("data/keyPlayer.png")
+        self.origImage = pygame.image.load("data/keyPlayer.png")
+        self.image = self.origImage
         self.radius = self.image.get_rect().width/2
        # self.image.set_colorkey((0,0,0))
       #  self.image.lock()
@@ -56,7 +57,14 @@ class CircleGuy(Entity, InputListener):
         if self.keys[pygame.K_d]: self.acc[0] += self.speed
 
         self.move()
-        
+        self.rotate += 7.5
+        if self.rotate >= 345:
+            self.rotate = 0
+        old = Vect2(self.image.get_rect().center)
+        rot_image = pygame.transform.rotate(self.origImage, self.rotate)
+        self.image = rot_image
+        new = Vect2(rot_image.get_rect().center)
+        self.pos = self.pos-(new-old)
 		# wrap around the playfield
         if self.pos[0] > 640: self.pos[0] = 0
         if self.pos[0] < 0:   self.pos[0] = 640
