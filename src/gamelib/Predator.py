@@ -17,8 +17,11 @@ class Predator(NPC):
         self.lifeSpan = 10000
         self.birth = time.time()
         self.rotate = 0.0
+        self.radius = self.image.get_rect().width/2
     
     def update(self, dT):
+        for entity, dist in self.arena.collisions[self]:
+            if isinstance(entity, Predator): self.displace(entity, dist)
         #slow die
         if time.time() - self.birth > Variables.PredatorLS:
             #begin death animation

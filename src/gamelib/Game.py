@@ -73,12 +73,10 @@ class Game(object):
                     self.currentArea.collisionDetect(entity, self.tick_rate)
                     entity.update(self.tick_rate)
                     entity.render(self.screen)
-
+                
                 # exert attract/repulse forces - this is shitty
                 #self.currentArea.doAccelerators()
 
                 self.last_update = get_ticks()
                 
             pygame.display.update()
-            
-            	
