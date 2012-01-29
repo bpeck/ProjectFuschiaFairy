@@ -25,8 +25,8 @@ lvlFoodCount[3] = 5
 lvlEaterCount[3] = 6
 
 #LifeSpans in seconds, maybe mod by level
-PredatorLS = 3
-KeyplayerLS = 30
+PredatorLS = 2
+KeyplayerLS = 8
 
 
 

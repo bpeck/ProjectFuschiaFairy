@@ -79,7 +79,7 @@ class MouseEntity(InputListener, Entity):
         self.grabbedEntity.drag = 0.2
         self.grabbedEntity.acc = self.vel * 3.0
         self.grabbedEntity.behavior = NPC.THROWN
-        self.grabbedEntity.behaviorCounter = 200
+        self.grabbedEntity.behaviorCounter = 600
         self.grabbedEntity = None
             
     def update(self, dT=0):

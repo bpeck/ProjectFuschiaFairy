@@ -96,8 +96,8 @@ class Game(object):
                     if time.time() > i +3:
                         size = minSize + random.random() * (maxSize - minSize)
                         pos = [0.0,0.0]
-                        pos[0] += int(random.random() * screenW)
-                        pos[1] += int(random.random() * screenH)            
+                        pos[0] += int(random.random() * 640)
+                        pos[1] += int(random.random() * 480)            
                         prey = Prey(size, pos, maxRotVel, maxRotAcc, self.currentArea)
                         self.entities.append(prey)
                         self.deadPrey.remove(i)
