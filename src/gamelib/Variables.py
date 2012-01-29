@@ -6,6 +6,8 @@
 
 import pygame
 
+currentPrey = 0
+currentPredator = 0
 #food/eater counts per level 
 lvlFoodCount = [0,0,0,0]
 lvlEaterCount = [0,0,0,0]
@@ -21,6 +23,10 @@ lvlEaterCount[2] = 4
 #lvl 4
 lvlFoodCount[3] = 5
 lvlEaterCount[3] = 6
+
+#LifeSpans in seconds, maybe mod by level
+PredatorLS = 20
+KeyplayerLS = 30
 
 
 
