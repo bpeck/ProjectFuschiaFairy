@@ -30,6 +30,9 @@ class Game(object):
         self.deadPrey = []
         self.currentArea = TestArena(screen ,self.currentLevel)
         
+        self.deathsound = pygame.mixer.Sound('data/death.wav')
+        self.nomsound = pygame.mixer.Sound('data/nom.wav')
+        
         self.entities = self.currentArea.getInitialEntities()
         self.inputListeners = self.currentArea.getInitialKeyListeners()
         self.accelerators = self.currentArea.getInitialAccelerators()
@@ -83,8 +86,10 @@ class Game(object):
                 for e in entitiesToRemove:
                     if isinstance(e, Predator):
                         self.deadPredator.append(time.time())
+                        self.deathsound.play()
                     if isinstance(e, Prey):
                         self.deadPrey.append(time.time())
+                        self.nomsound.play()
                     self.entities.remove(e)
                     #print "removed a guy!"
                 maxSize = 50.0
