@@ -30,10 +30,10 @@ class MouseEntity(InputListener, Entity):
 
         self.radius = float(self.image.get_width()) / 2.0
 
-        self.maxSpeed = 30
+        self.maxSpeed = 100
         
         self.grabbing = False
-        self.grabDist = 15 # pixel distance within which you can grab something
+        self.grabDist = 60 # pixel distance within which you can grab something
         self.grabbedEntity = None
         
     def processEvent(self, event, dT=0):
@@ -71,17 +71,17 @@ class MouseEntity(InputListener, Entity):
     
     def release(self):
         self.grabbedEntity.grabbedBy = None
-        self.grabbedEntity.maxSpeed = 20.0
-        self.grabbedEntity.drag = 0.8
+        self.grabbedEntity.maxSpeed = 50.0
+        self.grabbedEntity.drag = 0.2
         self.grabbedEntity.acc = self.vel * 3.0
         self.grabbedEntity.behavior = NPC.THROWN
-        self.grabbedEntity.behaviorCounter = 700
+        self.grabbedEntity.behaviorCounter = 200
         self.grabbedEntity = None
             
     def update(self, dT=0):
             if self.imgState > 0:
                 self.biteAnim()
 
-            self.vel = (self.mouse_pos-self.pos)/5.0
+            self.vel = (self.mouse_pos-self.pos)/1.5
                 
             self.move()
