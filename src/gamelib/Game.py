@@ -12,6 +12,9 @@ from Arena import Arena
 from TestArena import TestArena
 from Entity import Entity
 from InputListener import InputListener
+
+#from Collision import Collision
+
 import Variables
 from Variables import *
 from Data import *
@@ -23,7 +26,7 @@ class Game(object):
     
         self.done = False
         
-        self.currentArea = TestArena(screen)
+        self.currentArea = TestArena(screen ,3)
         
         self.entities = self.currentArea.getInitialEntities()
         self.inputListeners = self.currentArea.getInitialKeyListeners()
@@ -73,7 +76,7 @@ class Game(object):
 
                 # exert attract/repulse forces - this is shitty
                 #self.currentArea.doAccelerators()
-                
+
                 self.last_update = get_ticks()
                 
             pygame.display.update()

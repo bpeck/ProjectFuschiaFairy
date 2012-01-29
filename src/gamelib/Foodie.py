@@ -16,33 +16,29 @@ from Util import clamp, clampAmp
 class Foodie(Entity):
     
     WANDER, GOAL, NUM_FOODIE_BEHAVIORS = range(3)
-    
-    def __init__(self, size, color, position, maxRotVel, maxRotAcc):
+
+    def __init__(self, size, position, maxRotVel, maxRotAcc):
         Entity.__init__(self)
         
         self.name = 'CircleGuy'
-        self.color = color
-        
+
+        self.rotate = 0
         self.rot = 0 # radians
         self.rotVel = 0.0
         self.rotAcc = 0.0
         
         self.maxRotVel = maxRotVel
         self.maxRotAcc = maxRotAcc
-        
+        self.oldPos = Vect2([0.0, 0.0])
         self.pos = Vect2(position)
         self.vel = Vect2([0.0, 0.0])
         self.acc = Vect2([0.5, 0.0])
         self.maxSpeed = 3.25
         
         self.rect = Rect(0,0,size,size)
-        self.radius = size/2
-        self.image = Surface(self.rect[2:])
-        self.image.set_colorkey((0,0,0))
-        self.image.lock()
-        draw.circle(self.image, self.color, self.rect.center, self.rect.w/2, 1)
-        self.image.unlock()
-        self.radius = float(size) / 2.0
+        self.origImage = pygame.image.load('data/Prey-02.png')      
+        self.image = self.origImage 
+        self.radius = float(origImage.get_width()) / 2.0
         
         self.goal = Vect2([320.0, 240.0]) # cn be Vect2 or Entity
         self.forceGoal = False # won't stop going towards goal until it gets there
@@ -148,3 +144,4 @@ class Foodie(Entity):
             self.behaviorCounter = 1500
             self.behavior = Foodie.GOAL
         
+
