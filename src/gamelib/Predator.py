@@ -2,6 +2,7 @@ from NPC import NPC
 from Vect2 import Vect2
 import pygame, time
 from Prey import Prey
+import Variables
 from Variables import *
 
 
@@ -33,7 +34,8 @@ class Predator(NPC):
             if isinstance(entity, Prey):
                 self.lifeSpan += 2000
             if isinstance(entity, Predator):
-                self.displace(self, dist)
+                if dist > 0.0:
+                    self.displace(entity, dist)
     
     def update(self, dT):
         
@@ -47,7 +49,7 @@ class Predator(NPC):
                 self.iDied = 1
             else:
                 self.dieLvl += 1
-            print self.dieLvl
+
             cImg = self.dieImg[self.dieLvl]
             
         NPC.update(self, dT)
