@@ -15,6 +15,7 @@ from InputListener import InputListener
 
 import Variables
 from Variables import *
+from Data import *
 
 class Game(object):
     
@@ -49,7 +50,9 @@ class Game(object):
                         listener.processEvent(e)
 
             if self.last_update + self.tick_rate < get_ticks():
-            	self.screen.fill(self.BG_COLOR)
+            	#self.screen.fill(self.BG_COLOR)
+                bg = pygame.image.load("data/Background.png")
+                self.screen.blit(bg,[0,0])
                 for entity in self.entities:
                     entity.update(self.tick_rate)
                     
