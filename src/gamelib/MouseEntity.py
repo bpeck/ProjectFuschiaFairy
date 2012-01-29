@@ -4,19 +4,14 @@ from pygame import Surface
 from pygame import draw
 
 from Entity import Entity
+from Accelerator import Accelerator
 from InputListener import InputListener
-
-
-from Data import *
-
-
 from Vect2 import Vect2
 
-
-class MouseEntity(Entity, InputListener):
+class MouseEntity(InputListener, Accelerator):
     
     def __init__(self):
-        Entity.__init__(self)
+        Accelerator.__init__(self, 5.0, 0.0, 4.0)
         self.name = 'MouseEntity'
         self.mouse_pos = Vect2([0.0, 0.0])
         self.image = pygame.image.load('data/mousePlayer.png')
