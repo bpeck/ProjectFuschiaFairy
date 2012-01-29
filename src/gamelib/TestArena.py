@@ -48,7 +48,7 @@ class TestArena(Arena):
             pos = [0.0,0.0]
             pos[0] += int(random.random() * screenW)
             pos[1] += int(random.random() * screenH)            
-            prey = Prey(size, pos, maxRotVel, maxRotAcc)
+            prey = Prey(size, pos, maxRotVel, maxRotAcc, self)
 
             self.entities.append(prey)
 
@@ -57,17 +57,16 @@ class TestArena(Arena):
             pos = [0.0,0.0]
             pos[0] += int(random.random() * screenW)
             pos[1] += int(random.random() * screenH)
-            predator = Predator(size, pos, maxRotVel, maxRotAcc)
+            predator = Predator(size, pos, maxRotVel, maxRotAcc, self)
             
             self.entities.append(predator)
         
         # init players
-        c = CircleGuy()
-        m = MouseEntity()
+        c = CircleGuy(self)
+        m = MouseEntity(self)
         self.accelerators += [m]
         self.entities += [c, m]
-        for e in self.entities:
-            e.arena = self
+
         
         self.keyListeners += [c, m]
     

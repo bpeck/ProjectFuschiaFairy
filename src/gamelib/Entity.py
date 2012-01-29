@@ -5,14 +5,14 @@ from Vect2 import Vect2
 
 class Entity(Sprite):
 
-    def __init__(self):
+    def __init__(self, a):
         self.rect = None
         self.image = None
         self.iDied = 0
         self.pos = Vect2([0.0, 0.0])
         self.vel = Vect2([0.0, 0.0])
         self.acc = Vect2([0.0, 0.0])
-
+        self.arena = a
         self.maxSpeed = 1.0
         self.drag = 1.0
         

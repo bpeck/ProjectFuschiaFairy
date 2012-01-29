@@ -3,8 +3,9 @@ import pygame
 
 class Prey(NPC):
     
-    def __init__(self, size, position, maxRotVel, maxRotAcc):
-        NPC.__init__(self, size, position, maxRotVel, maxRotAcc)
+    def __init__(self, size, position, maxRotVel, maxRotAcc, a):
+        NPC.__init__(self, size, position, maxRotVel, maxRotAcc, a)
+        
         self.name = 'Prey'
         self.alive = True
         self.deathAnim = []

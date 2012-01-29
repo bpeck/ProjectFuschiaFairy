@@ -8,8 +8,8 @@ from Variables import *
 
 class Predator(NPC):
     
-    def __init__(self, size, position, maxRotVel, maxRotAcc):
-        NPC.__init__(self, size, position, maxRotVel, maxRotAcc)
+    def __init__(self, size, position, maxRotVel, maxRotAcc, a):
+        NPC.__init__(self, size, position, maxRotVel, maxRotAcc, a)
         self.origImage = pygame.image.load('data/Predator.png')      
         self.dieImg = [pygame.image.load('data/Predator 01.png'),     
         pygame.image.load('data/Predator 02.png'),

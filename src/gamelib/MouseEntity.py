@@ -12,8 +12,8 @@ from Vect2 import Vect2
 
 class MouseEntity(InputListener, Entity):
 
-    def __init__(self):
-        Entity.__init__(self)
+    def __init__(self, a):
+        Entity.__init__(self, a)
         self.name = 'MouseEntity'
         self.mouse_pos = Vect2([0.0, 0.0])
         self.origImage = pygame.image.load('data/mousePlayer.png')

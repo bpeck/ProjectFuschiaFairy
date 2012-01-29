@@ -17,8 +17,8 @@ class NPC(Entity):
     
     THROWN, WANDER, GOAL, NUM_NPC_BEHAVIORS = range(4)
 
-    def __init__(self, size, position, maxRotVel, maxRotAcc):
-        Entity.__init__(self)
+    def __init__(self, size, position, maxRotVel, maxRotAcc, a):
+        Entity.__init__(self, a)
         
         self.name = 'NPC'
 

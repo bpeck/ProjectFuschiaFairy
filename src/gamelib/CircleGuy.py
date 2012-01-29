@@ -9,8 +9,8 @@ from Vect2 import Vect2
 
 class CircleGuy(Entity, InputListener):
     
-    def __init__(self):
-        Entity.__init__(self)
+    def __init__(self, a):
+        Entity.__init__(self, a)
         self.name = 'CircleGuy'
         self.pos = Vect2((100.0, 100.0))
         self.rotate =0.0
