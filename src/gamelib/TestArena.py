@@ -65,8 +65,6 @@ class TestArena(Arena):
             e.arena = self
         
         self.keyListeners += [c, m]
-        
-        for e in self.entities: e.arena = self
     
     def getInitialEntities(self):
         return self.entities
