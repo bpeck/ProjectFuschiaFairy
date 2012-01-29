@@ -3,39 +3,47 @@ from pygame.rect import Rect
 from pygame import Surface
 from pygame import draw
 from Entity import Entity
+from Vect2 import Vect2
 
 class Actor(Entity):
 
     def __init__(self, baseSpeed):
         self.keys = [False]*128
         self.baseSpeed = baseSpeed
-        self.xMod = 0
-        self.yMod = 0
-        self.maxSpeedX = 3
-        self.maxSpeedY = 3
-        self.minSpeedX = -3.0 
-        self.minSpeedY = -3.0 
-    
+        self.velocity = Vect2((0, 0))
+        self.maxSpeed = 3
+
     def keyDown(self, k):
         self.keys[k] = True
     def keyUp(self, k):
         self.keys[k] = False
     
     def update(self,DT):
-        if self.keys[pygame.K_w] and self.yMod > self.minSpeedY:
-            #self.kd = 'w'
-            self.yMod += -1.0 * self.baseSpeed
-        if self.keys[pygame.K_a] and self.xMod > self.minSpeedX:
-            #self.kd = 'a'
-            self.xMod += -1.0 * self.baseSpeed
-        if self.keys[pygame.K_s] and self.yMod < self.maxSpeedY:
-            #self.kd = 's'
-            self.yMod += self.baseSpeed
-        if self.keys[pygame.K_d] and self.xMod < self.maxSpeedX:
-            #self.kd = 'd'
-            self.xMod += self.baseSpeed
+	self.pos[0] += 1.0
+	return 
+        if self.keys[pygame.K_w]:
+            self.velocity[1] += -self.baseSpeed
+        if self.keys[pygame.K_a]:
+            self.velocity[0] += -self.baseSpeed
+        if self.keys[pygame.K_s]:
+            self.velocity[1] += self.baseSpeed
+        if self.keys[pygame.K_d]:
+            self.velocity[0] += self.baseSpeed
+#        if self.velocity.magnitude() > self.maxSpeed:
+#          self.velocity = self.velocity.normalize(self.maxSpeed)
 
-        if self.yMod > 0:
+        #self.velocity *= 0.999
+        self.pos += self.velocity
+        #print self.velocity
+        if self.pos[0] > 640:
+            self.pos[0] = 0
+        if self.pos[0] < 0:
+            self.pos[0] = 640
+        if self.pos[1] > 480:
+            self.pos[1] = 0
+        if self.pos[1] < 0:
+            self.pos[1] = 480
+"""        if self.yMod > 0:
             self.yMod -= .05
         if self.yMod < 0:
             self.yMod += .05
@@ -46,16 +54,6 @@ class Actor(Entity):
         if self.xMod < 0:
             self.xMod += .05
 
-        if self.pos[0] > 640:
-            self.pos[0] = 0
-        if self.pos[0] < 0:
-            self.pos[0] = 640
-        if self.pos[1] > 480:
-            self.pos[1] = 0
-        if self.pos[1] < 0:
-            self.pos[1] = 480
+"""
 
-#        print 'xMod: ' + str(self.xMod)
-#        print 'yMod: ' + str(self.yMod)
-        self.pos[0] += self.xMod
-        self.pos[1] += self.yMod
+

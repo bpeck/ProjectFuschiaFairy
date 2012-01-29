@@ -2,11 +2,13 @@ import math
 
 class Vect2:
   def __init__(self, d):
-    self.d = d
+    self.d = list(d)
   
   def __getitem__(self, n):
     return self.d[n]
-  
+  def __setitem__(self, index, value):
+    self.d[index] = value
+
   def __add__(self, v):
     return Vect2((self.d[0]+v.d[0], self.d[1]+v.d[1]))
   
@@ -30,8 +32,8 @@ class Vect2:
   def magnitude(self):
     return math.sqrt(self.magnitude_squared())
   
-  def normalize(self):
-    return self/self.magnitude()
+  def normalize(self, length=1):
+    return self/self.magnitude() * length
 
   def __str__(self):
     return "( %g %g )"%(self.d[0], self.d[1])

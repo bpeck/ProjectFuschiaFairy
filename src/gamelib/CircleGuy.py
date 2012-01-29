@@ -5,14 +5,14 @@ from pygame import draw
 
 from Actor import Actor
 from InputListener import InputListener
-
+from Vect2 import Vect2
 
 class CircleGuy(Actor, InputListener):
     
     def __init__(self):
-        Actor.__init__(self, .1)
+        Actor.__init__(self, 1)
         self.name = 'CircleGuy'
-        self.pos = [100.0, 100.0]
+        self.pos = Vect2((100.0, 100.0))
         self.rect = Rect(0,0,50,50)
         
         self.image = Surface(self.rect[2:])
@@ -21,7 +21,7 @@ class CircleGuy(Actor, InputListener):
         #draw.circle(self.image, (255,255,255), self.rect.center, self.rect.w, 4)
         self.image.unlock()
     
-    def processEvent(self, event, dT):
+    def processEvent(self, event, dT=0):
         if event.type == pygame.KEYDOWN:
             self.keyDown(event.key)
         if event.type == pygame.KEYUP:

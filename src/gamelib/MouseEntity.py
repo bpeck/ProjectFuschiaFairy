@@ -22,7 +22,7 @@ class MouseEntity(Entity, InputListener):
         draw.circle(self.image, (255,255,255), self.rect.center, self.rect.w/2, 1)
         self.image.unlock()
     
-    def processEvent(self, event, dT):
+    def processEvent(self, event, dT=0):
         if event.type == pygame.MOUSEMOTION:
             # center the position at the mouse
             self.pos[0] = event.pos[0] - self.rect.center[0]
