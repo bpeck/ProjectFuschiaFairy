@@ -47,6 +47,7 @@ class NPC(Entity):
         self.behavior = NPC.WANDER
         self.behaviorCounter = 1000
     
+    '''
     def collide(self, dT):
         collision = self.arena.collisions[self]
         if collision != None:
@@ -59,6 +60,7 @@ class NPC(Entity):
                 bounceAngle *= -1.0
             
             self.vel = bounceAngle * self.vel.magnitude()
+    '''
     
     # behavior that is called in update
     def goTowardsGoal(self, dT):
@@ -71,10 +73,9 @@ class NPC(Entity):
         # return true if we reached goal
         if dist < 2.0:
             return True
-        goalDir.normalize(1.0)
+        
         # otherwise accelerate towards goal
-        self.acc[0] = goalDir[0] * 2.0
-        self.acc[1] = goalDir[1] * 2.0
+        self.acc = goalDir / 5.0
         return False
     
     # behavior that is called in update
@@ -120,7 +121,6 @@ class NPC(Entity):
                     self.behavior = NPC.WANDER
                     self.behaviorCounter = 2000
         elif self.behavior == NPC.THROWN:
-            self.maxSpeed = 20.0
             if self.behaviorCounter < 0:
                 self.maxSpeed = 3.25
                 self.acc = Vect2([0.0,0.0])
@@ -129,7 +129,7 @@ class NPC(Entity):
             
         Entity.move(self)
         
-        self.collide(dT)
+        #self.collide(dT)
         
         halfW = int(float(self.rect.w) / 2.0)
         wrapped = False
@@ -146,7 +146,7 @@ class NPC(Entity):
         if self.pos[1] + halfH < 0:
             self.pos[1] = 480
             wrapped = True
-        if wrapped:
+        if wrapped and self.behavior == NPC.WANDER:
             # go towards middle of screen for a bit
             self.goal = Vect2([320.00, 240.0])
             self.forceGoal = False

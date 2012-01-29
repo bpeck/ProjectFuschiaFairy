@@ -1,11 +1,20 @@
 from NPC import NPC
+import pygame
 
 class Prey(NPC):
     
     def __init__(self, size, position, maxRotVel, maxRotAcc):
         NPC.__init__(self, size, position, maxRotVel, maxRotAcc)
         self.name = 'Prey'
-        self.lifeSpan = 10000
+        self.alive = True
+        self.deathAnim = []
+        for i in range(6):
+            self.deathAnim.append( pygame.image.load('data/Prey 0%d.png' % (i+1)))
+        self.imageIndex = 0
+        self.image = self.deathAnim[self.imageIndex]
+        self.lifeSpan = 30 * len(self.deathAnim)
+        
+        
     
     def update(self, dT):
         if not self.grabbedBy:
@@ -13,6 +22,6 @@ class Prey(NPC):
         else:
             self.pos = self.grabbedBy.pos
         
-        self.lifeSpan -= dT
-        if self.lifeSpan < 0:
-            self.lifeSpan = 10000
+        if not self.alive:
+            self.imageIndex += 1
+            self.image = self.deathAnim[min(self.imageIndex, len(self.deathAnim)-1)]
