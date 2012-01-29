@@ -23,10 +23,10 @@ class Game(object):
     
     def __init__(self, screen):
         self.screen = screen
-    
+        self.currentLevel = 0
         self.done = False
         
-        self.currentArea = TestArena(screen ,3)
+        self.currentArea = TestArena(screen ,self.currentLevel)
         
         self.entities = self.currentArea.getInitialEntities()
         self.inputListeners = self.currentArea.getInitialKeyListeners()
@@ -47,7 +47,7 @@ class Game(object):
         self.gameLoop()
     
     def gameLoop(self):
-        bg = pygame.image.load("data/Background.png")
+        bg = pygame.image.load("data/Background-640-Lev" + str(self.currentLevel +1) + ".png")
         while not self.done:
             for e in pygame.event.get():
                 if e.type == QUIT:
@@ -69,10 +69,16 @@ class Game(object):
                 #self.currentArea.update(self.tick_rate)
                 
                 # update logic
+                entitiesToRemove = []
                 for entity in self.entities:
                     self.currentArea.collisionDetect(entity, self.tick_rate)
                     entity.update(self.tick_rate)
+                    if entity.iDied ==1:
+                        entitiesToRemove.append(entity)
+                        continue
                     entity.render(self.screen)
+                for e in entitiesToRemove:
+                    self.entities.remove(e)
 
                 # exert attract/repulse forces - this is shitty
                 #self.currentArea.doAccelerators()
