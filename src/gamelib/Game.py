@@ -24,7 +24,7 @@ class Game(object):
     
         self.done = False
         
-        self.currentArea = TestArena(screen)
+        self.currentArea = TestArena(screen ,3)
         
         self.entities = self.currentArea.getInitialEntities()
         self.inputListeners = self.currentArea.getInitialKeyListeners()
@@ -64,6 +64,6 @@ class Game(object):
                 for entity in self.entities:
                     entity.render(self.screen)
                 
-                print get_ticks()-start_of_frame, "ms"
+               # print get_ticks()-start_of_frame, "ms"
             	pygame.display.update()
                 self.last_update = get_ticks()

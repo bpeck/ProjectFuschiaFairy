@@ -12,12 +12,12 @@ from Vect2 import Vect2
 from Util import clamp, clampAmp
 
 
-class Foodie(Entity):
+class Eater(Entity):
     
     def __init__(self, size, position, maxRotVel = math.pi / 10.0, maxRotAcc = math.pi / 20.0):
         Entity.__init__(self)
-
-        self.name = 'CircleGuy'
+        self.slowdown = 0
+        self.name = 'BadGuy'
 
         self.rotate = 0
         self.rot = 0 # radians
@@ -32,7 +32,7 @@ class Foodie(Entity):
         self.maxSpeed = 0.5
         
         self.rect = Rect(0,0,size,size)
-        self.origImage = pygame.image.load('data/Prey-02.png')      
+        self.origImage = pygame.image.load('data/Predator.png')      
         self.image = self.origImage 
         # self.image = Surface(self.rect[2:])
        # self.image.set_colorkey((0,0,0))
@@ -41,7 +41,8 @@ class Foodie(Entity):
        # self.image.unlock()
     
     def update(self, dT):
-   
+       # self.slowdown += 1
+        #if self.slowdown % 50 == 0:    
             # update the rotation acc by random amount
             self.rotAcc = clampAmp(-self.maxRotAcc + \
                 self.rotAcc + \

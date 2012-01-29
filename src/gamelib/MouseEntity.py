@@ -19,33 +19,37 @@ class MouseEntity(InputListener, Accelerator):
         self.origImage = pygame.image.load('data/mousePlayer.png')
         self.image =  self.origImage
         self.mouseOffset = Vect2(self.image.get_rect().center)
-        self.rotate = 45
+
+        self.imgState = 0
+        self.image1 = pygame.image.load('data/mousePlayer_1.png')
+        self.image2 = pygame.image.load('data/mousePlayer_2.png')
+        self.image3 = pygame.image.load('data/mousePlayer_3.png')
 
     def processEvent(self, event, dT=0):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            self.imgState = 1
         if event.type == pygame.MOUSEMOTION:
             # center the position at the mouse
             oldPos = self.mouse_pos
             self.mouse_pos = Vect2(event.pos) - self.mouseOffset
+        if event.type == pygame.MOUSEBUTTONUP:
+            self.imgState = 0
+            self.image = self.origImage
             
-           # angle = math.degrees(math.atan2( oldPos[1]-self.mouse_pos[1], oldPos[0]-self.mouse_pos[0]))+180
-            #self.rotate = angle
-            #oRect = self.image.get_rect()
-            #angle =
-            
-            #print angle 
-            
-            #rRect = oRect.copy()
-            #rRect.center = self.image.get_rect().center
-            #rImage = rImage.subsurface(rRect).copy()
-            #self.image = rImage
+    def bite(self):
+        if self.imgState == 1:
+            self.image = self.image1
+            self.imgState += 1
+        if self.imgState == 2:
+            self.image = self.image2
+            self.imgState += 1
+        if self.imgState == 3:
+            self.image = self.image3
+ 
     def update(self, dT=0):
-
-            #c = self.image.get_rect().center
-            self.image = pygame.transform.rotate(self.origImage,self.rotate)
-            #self.image.get_rect().center = c
-            self.rotate += 90
-            if self.rotate > 360:
-                self.rotate = 0
+            if self.imgState > 0:
+                self.bite()
+           
             #smoothing 
             self.pos = self.pos*0.9 + self.mouse_pos*0.1
 

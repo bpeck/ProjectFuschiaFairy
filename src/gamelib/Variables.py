@@ -1,18 +1,31 @@
 """ variables.py   
-Putting the main variables into one file.
-by Adam Rickert, 2011 
+
 """
 
 #! /usr/bin/env python
 
 import pygame
 
-playerJumpHeight = -10
-playerHealth = 3
-playerLives = 3
+#food/eater counts per level 
+lvlFoodCount = [0,0,0,0]
+lvlEaterCount = [0,0,0,0]
+#lvl 1
+lvlFoodCount[0] = 3
+lvlEaterCount[0] =2
+#lvl 2
+lvlFoodCount[1] = 4
+lvlEaterCount[1] = 3
+#lvl 3 
+lvlFoodCount[2] = 4
+lvlEaterCount[2] = 4
+#lvl 4
+lvlFoodCount[3] = 5
+lvlEaterCount[3] = 6
 
-walkSpeed = 1.4
 
+
+#KEYS
+#Set up the key controls for the game
 #KEYS
 #Set up the key controls for the game
 escapeKey = pygame.K_ESCAPE
@@ -25,6 +38,3 @@ leftKey = pygame.K_a
 rightKey = pygame.K_d
 jumpKey = pygame.K_SPACE
 
-#leftKey = pygame.K_LEFT
-#rightKey = pygame.K_RIGHT
-#jumpKey = pygame.K_z
