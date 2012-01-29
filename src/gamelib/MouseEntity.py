@@ -10,6 +10,7 @@ from InputListener import InputListener
 class MouseEntity(Entity, InputListener):
     
     def __init__(self):
+        Entity.__init__(self)
         self.name = 'MouseEntity'
         self.rect = Rect(0,0,25,25)
         self.pos = [0.0,0.0]

@@ -15,7 +15,7 @@ class Entity(Sprite):
         self.maxSpeed = -1
         self.drag = 1
     
-    def update(self): self.move()
+    def update(self, dT=0): self.move()
     
     def move(self):
         self.vel += self.acc
