@@ -36,7 +36,7 @@ class NPC(Entity):
         self.maxSpeed = 3.25
         
         self.rect = Rect(0,0,size,size)
-        self.origImage = pygame.image.load('data/Prey-02.png')      
+        self.origImage = pygame.image.load('data/Prey 01.png')      
         self.image = self.origImage 
         self.radius = float(self.origImage.get_width()) / 2.0
         

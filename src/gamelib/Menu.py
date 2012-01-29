@@ -160,7 +160,7 @@ class Menu():
         self.bg = pygame.image.load('data/Background-640-Lev1.png')
         self.bgOverlay = pygame.image.load('data/Title.png')
         
-        self.menu.set_font(pygame.font.Font(filepath("fonts/tandelle regular.ttf"), 16))
+        #self.menu.set_font(pygame.font.Font(filepath("fonts/tandelle regular.ttf"), 16))
         
         #play_music(audio.titleTheme, 0.50, 1)
         
@@ -184,6 +184,7 @@ class Menu():
                     return
                 
             self.screen.blit(self.bg, (0, 0))
+            self.screen.blit(self.bgOverlay, (0, 0))
             
             self.menu.draw(self.screen)
             pygame.display.flip()
