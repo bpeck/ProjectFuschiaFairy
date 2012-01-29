@@ -32,12 +32,13 @@ class Game(object):
         self.BG_COLOR = (0,0,0)
         
         # logic clock
-        self.tick_rate = 50
+        self.tick_rate = 30
         self.last_update = 0
         print 'Entering game loop'
         self.gameLoop()
     
     def gameLoop(self):
+        bg = pygame.image.load("data/Background.png")
         while not self.done:
             for e in pygame.event.get():
                 if e.type == QUIT:
@@ -50,9 +51,8 @@ class Game(object):
                         listener.processEvent(e)
 
             if self.last_update + self.tick_rate < get_ticks():
+                start_of_frame = get_ticks()
             	#self.screen.fill(self.BG_COLOR)
-                bg = pygame.image.load("data/Background.png")
-                self.screen.blit(bg,[0,0])
                 for entity in self.entities:
                     entity.update(self.tick_rate)
                     
@@ -60,9 +60,10 @@ class Game(object):
                   collision[0].collide(collision[1])
                   collision[1].collide(collision[0])
                 
+                self.screen.blit(bg,[0,0])
                 for entity in self.entities:
                     entity.render(self.screen)
                 
-                pygame.display.update()
-            
-            	self.last_update = get_ticks()
+                print get_ticks()-start_of_frame, "ms"
+            	pygame.display.update()
+                self.last_update = get_ticks()

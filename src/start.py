@@ -8,4 +8,6 @@ by Adam Rickert, 2011
 #! /usr/bin/env python
 
 from gamelib import main
+#import cProfile
+#cProfile.run("main.main()")
 main.main()

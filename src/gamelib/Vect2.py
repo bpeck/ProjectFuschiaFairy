@@ -33,8 +33,11 @@ class Vect2:
         return math.sqrt(self.magnitude_squared())
     
     def distance(self, v):
-        return (v-self).magnitude()
-    
+        return math.sqrt(self.distance_squared(v))
+        
+    def distance_squared(self, v):
+        return (v-self).magnitude_squared()
+         
     def normalize(self, length=1):
         return self/self.magnitude() * length
 

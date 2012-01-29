@@ -13,7 +13,7 @@ class Arena(object):
             if not i.collides: continue
             for j in self.entities:
                 if not j.collides or i==j: continue
-                if i.pos.distance(j.pos) < i.radius+j.radius:
+                if i.pos.distance_squared(j.pos) < (i.radius+j.radius)**2:
                     collisions.append((i, j))
         return collisions
     

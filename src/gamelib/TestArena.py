@@ -21,7 +21,7 @@ class TestArena(Arena):
         screenW = float(screen.get_width())
         screenH = float(screen.get_height())
         
-        for i in range(100):
+        for i in range(40):
             size = minSize + random.random() * (maxSize - minSize)
             pos = [0.0,0.0]
             pos[0] += int(random.random() * screenW)
