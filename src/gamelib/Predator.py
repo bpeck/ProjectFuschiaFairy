@@ -31,7 +31,7 @@ class Predator(NPC):
     def collide(self):
         for collision in self.arena.collisions[self]:
             entity, dist = collision
-            if isinstance(entity, Prey) and entity.iDie != 1:
+            if isinstance(entity, Prey) and entity.iDied != 1:
                 self.lifeSpan += 2000
             if isinstance(entity, Predator):
                 if dist > 0.0:
