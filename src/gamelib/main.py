@@ -4,7 +4,7 @@ used by multiple modules
 by Adam Rickert, 2011 
 """
 
-import pygame, os
+import pygame, os, random
 
 #pygame.locals import * causes pygame to include only the constants from the imported modules
 from pygame.locals import *
@@ -12,6 +12,8 @@ from pygame.locals import *
 from gamelib.Menu import Menu
 
 def main():
+    random.seed()
+
     #centers the pygame window in the middle of the monitor - HANDY :)
     os.environ["SDL_VIDEO_CENTERED"] = "1"
     

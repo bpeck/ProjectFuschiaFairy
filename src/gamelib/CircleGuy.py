@@ -28,6 +28,8 @@ class CircleGuy(Entity, InputListener):
         self.speed = 1.5
         self.maxSpeed = 5.0
         self.drag  = 0.95
+        
+        self.radius = float(self.image.get_width()) / 2.0
     
     def processEvent(self, event, dT=0):
         if event.type == pygame.KEYDOWN:

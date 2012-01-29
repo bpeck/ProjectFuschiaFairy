@@ -9,8 +9,6 @@ from InputListener import InputListener
 
 
 from Data import *
-
-1f
 from Vect2 import Vect2
 
 class MouseEntity(InputListener, Accelerator):
@@ -23,7 +21,7 @@ class MouseEntity(InputListener, Accelerator):
         self.image =  self.origImage
         self.mouseOffset = Vect2(self.image.get_rect().center)
         self.rotate = 45
-
+        self.radius = float(self.image.get_width()) / 2.0
 
     def processEvent(self, event, dT=0):
         if event.type == pygame.MOUSEMOTION:
@@ -31,17 +29,6 @@ class MouseEntity(InputListener, Accelerator):
             oldPos = self.mouse_pos
             self.mouse_pos = Vect2(event.pos) - self.mouseOffset
             
-           # angle = math.degrees(math.atan2( oldPos[1]-self.mouse_pos[1], oldPos[0]-self.mouse_pos[0]))+180
-            #self.rotate = angle
-            #oRect = self.image.get_rect()
-            #angle =
-            
-            #print angle 
-            
-            #rRect = oRect.copy()
-            #rRect.center = self.image.get_rect().center
-            #rImage = rImage.subsurface(rRect).copy()
-            #self.image = rImage
     def update(self, dT=0):
 
             #c = self.image.get_rect().center

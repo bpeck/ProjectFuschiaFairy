@@ -61,7 +61,6 @@ class TestArena(Arena):
         m = MouseEntity()
         self.accelerators += [m]
         self.entities += [c, m]
-        
         for e in self.entities:
             e.arena = self
         
@@ -74,6 +73,8 @@ class TestArena(Arena):
         return self.keyListeners
     
     def update(self, dT):
+        Arena.update(self, dT)
+        
         '''
         self.foodieAcceleratorResetTimer += dT
         if self.foodieAcceleratorResetTimer > self.foodieAcceleratorReset:
