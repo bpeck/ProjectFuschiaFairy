@@ -13,15 +13,15 @@ class CircleGuy(Entity, InputListener):
         Entity.__init__(self)
         self.name = 'CircleGuy'
         self.pos = Vect2((100.0, 100.0))
-        self.rect = Rect(0,0,50,50)
+       # self.rect = Rect(0,0,50,50)
         
         self.keys = [False]*512
         
-        self.image = Surface(self.rect[2:])
-        self.image.set_colorkey((0,0,0))
-        self.image.lock()
-        draw.circle(self.image, (255,0,0), self.rect.center, self.rect.w/2, 1)
-        self.image.unlock()
+        self.image = pygame.image.load("data/keyPlayer.png")
+       # self.image.set_colorkey((0,0,0))
+      #  self.image.lock()
+       # draw.circle(self.image, (255,0,0), self.rect.center, self.rect.w/2, 1)
+        #self.image.unlock()
         
         self.speed = 0.5
         self.drag  = 0.9
