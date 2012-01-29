@@ -123,6 +123,7 @@ class NPC(Entity):
         elif self.behavior == NPC.THROWN:
             if self.behaviorCounter < 0:
                 self.maxSpeed = 3.25
+                self.drag = 1.0
                 self.acc = Vect2([0.0,0.0])
                 self.behavior = NPC.WANDER
                 self.behaviorCounter = 2000 
@@ -150,7 +151,7 @@ class NPC(Entity):
             # go towards middle of screen for a bit
             self.goal = Vect2([320.00, 240.0])
             self.forceGoal = False
-            self.behaviorCounter = 1500
+            self.behaviorCounter = 1000
             self.behavior = NPC.GOAL
         
 
