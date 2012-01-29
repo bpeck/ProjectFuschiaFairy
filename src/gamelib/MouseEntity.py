@@ -72,6 +72,7 @@ class MouseEntity(InputListener, Entity):
     def release(self):
         self.grabbedEntity.grabbedBy = None
         self.grabbedEntity.maxSpeed = 20.0
+        self.grabbedEntity.drag = 0.8
         self.grabbedEntity.acc = self.vel * 3.0
         self.grabbedEntity.behavior = NPC.THROWN
         self.grabbedEntity.behaviorCounter = 700
