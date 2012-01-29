@@ -13,14 +13,15 @@ class CircleGuy(Entity, InputListener):
         Entity.__init__(self)
         self.name = 'CircleGuy'
         self.pos = Vect2((100.0, 100.0))
-        self.rect = Rect(0,0,50,50)
+        self.radius = 25
+        self.rect = Rect(0, 0, self.radius*2, self.radius*2)
         
         self.keys = [False]*512
         
         self.image = Surface(self.rect[2:])
         self.image.set_colorkey((0,0,0))
         self.image.lock()
-        draw.circle(self.image, (255,0,0), self.rect.center, self.rect.w/2, 1)
+        draw.circle(self.image, (255,0,0), (self.radius, self.radius), int(self.radius), 1)
         self.image.unlock()
         
         self.speed = 0.5
@@ -37,6 +38,9 @@ class CircleGuy(Entity, InputListener):
         
     def keyUp(self, k):
         self.keys[k] = False
+    
+    def collide(self, entity):
+        print "touched by an uncle"
     
     def update(self,DT):
         self.acc = Vect2([0, 0])

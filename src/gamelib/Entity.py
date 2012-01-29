@@ -14,6 +14,9 @@ class Entity(Sprite):
         self.acc = Vect2([0.0, 0.0])
         self.maxSpeed = -1
         self.drag = 1
+        
+        self.radius = 0
+        self.collides = True
     
     def update(self, dT=0): self.move()
     
@@ -24,8 +27,11 @@ class Entity(Sprite):
         self.vel *= self.drag
         self.pos += self.vel
     
+    def collide(self, entity):
+        pass
+    
     def render(self, screen, dT=0.0):
-        screen.blit(self.image, (int(self.pos[0]), int(self.pos[1])))
+        screen.blit(self.image, (int(self.pos[0]-self.radius), int(self.pos[1]-self.radius)))
     
     def getPos(self):
         return self.pos

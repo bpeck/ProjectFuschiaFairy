@@ -52,6 +52,12 @@ class Game(object):
             	self.screen.fill(self.BG_COLOR)
                 for entity in self.entities:
                     entity.update(self.tick_rate)
+                    
+                for collision in self.currentArea.findCollisions():
+                  collision[0].collide(collision[1])
+                  collision[1].collide(collision[0])
+                
+                for entity in self.entities:
                     entity.render(self.screen)
                 
                 pygame.display.update()
