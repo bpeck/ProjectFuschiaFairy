@@ -30,6 +30,18 @@ class Entity(Sprite):
           self.vel = self.vel.normalize(self.maxSpeed)
         self.vel *= self.drag
         self.pos += self.vel
+        
+    def displace(self, entity, distance):
+        if distance > self.radius+entity.radius: return
+        impact_normal = (self.pos - entity.pos).normalize()
+        overlap = distance - (self.radius+entity.radius)
+        self.pos = self.pos - impact_normal*overlap
+
+#        var a1:Number =   velocity.dot(impact_normal);
+#        var a2:Number = a.velocity.dot(impact_normal);
+#        var p:Number = (2.0 * (a1 - a2)) / (mass + a.mass);
+#        velocity   =   velocity.subtract(impact_normal.multiply(p*a.mass));
+#        a.velocity = a.velocity.add     (impact_normal.multiply(p*  mass));
     
     def collide(self, entity):
         pass

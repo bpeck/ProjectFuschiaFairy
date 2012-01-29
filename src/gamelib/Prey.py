@@ -12,11 +12,14 @@ class Prey(NPC):
             self.deathAnim.append( pygame.image.load('data/Prey 0%d.png' % (i+1)))
         self.imageIndex = 0
         self.image = self.deathAnim[self.imageIndex]
+        self.radius = self.image.get_rect().width/2
         self.lifeSpan = 30 * len(self.deathAnim)
         
         
     
     def update(self, dT):
+        for entity, dist in self.arena.collisions[self]:
+            if isinstance(entity, Prey): self.displace(entity, dist)
         if not self.grabbedBy:
             NPC.update(self, dT)
         else:

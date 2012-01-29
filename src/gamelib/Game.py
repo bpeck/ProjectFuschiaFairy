@@ -77,8 +77,10 @@ class Game(object):
                         entitiesToRemove.append(entity)
                         continue
                     entity.render(self.screen)
+
                 for e in entitiesToRemove:
                     self.entities.remove(e)
+
 
                 # exert attract/repulse forces - this is shitty
                 #self.currentArea.doAccelerators()
@@ -86,5 +88,3 @@ class Game(object):
                 self.last_update = get_ticks()
                 
             pygame.display.update()
-            
-            	

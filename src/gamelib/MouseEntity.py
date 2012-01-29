@@ -40,7 +40,7 @@ class MouseEntity(InputListener, Entity):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.imgState = 1
             closest_entity, dist = self.arena.closest[self]
-            if isinstance(closest_entity, Prey) and dist <= self.grabDist:
+            if isinstance(closest_entity, NPC) and dist <= self.grabDist:
                 self.grab(closest_entity)  
 
         elif event.type == pygame.MOUSEMOTION:
@@ -72,6 +72,7 @@ class MouseEntity(InputListener, Entity):
     def release(self):
         self.grabbedEntity.grabbedBy = None
         self.grabbedEntity.maxSpeed = 20.0
+        self.grabbedEntity.drag = 0.8
         self.grabbedEntity.acc = self.vel * 3.0
         self.grabbedEntity.behavior = NPC.THROWN
         self.grabbedEntity.behaviorCounter = 700

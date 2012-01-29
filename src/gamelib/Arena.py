@@ -14,7 +14,7 @@ class Arena(object):
     def collisionDetect(self, entity, dT = 0.0):
         if not entity.collides:
             return
-        self.collisions[entity] = None
+        self.collisions[entity] = []
         self.closest[entity] = None
 
         minDist = 99999.0
@@ -24,12 +24,12 @@ class Arena(object):
                 continue
                 
             dist = entity.pos.distance(other.pos)
+            if dist < entity.radius+other.radius:
+                self.collisions[entity].append((other, dist))
             
             if dist < minDist:
                 minDist = dist
                 self.closest[entity] = (other, dist)
-                if dist < entity.radius:
-                    self.collisions[entity] = (other, dist)
     
     def doAccelerators(self):
         for a in self.accelerators:
