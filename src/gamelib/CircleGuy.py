@@ -24,8 +24,9 @@ class CircleGuy(Entity, InputListener):
         draw.circle(self.image, (255,0,0), (self.radius, self.radius), int(self.radius), 1)
         self.image.unlock()
         
-        self.speed = 0.5
-        self.drag  = 0.9
+        self.speed = 1.5
+        self.maxSpeed = 5.0
+        self.drag  = 0.95
     
     def processEvent(self, event, dT=0):
         if event.type == pygame.KEYDOWN:
@@ -40,7 +41,8 @@ class CircleGuy(Entity, InputListener):
         self.keys[k] = False
     
     def collide(self, entity):
-        print "touched by an uncle"
+        pass
+        #print "touched by an uncle"
     
     def update(self,DT):
         self.acc = Vect2([0, 0])
