@@ -36,6 +36,7 @@ class Foodie(Entity):
         self.maxSpeed = 3.25
         
         self.rect = Rect(0,0,size,size)
+        self.radius = size/2
         self.image = Surface(self.rect[2:])
         self.image.set_colorkey((0,0,0))
         self.image.lock()

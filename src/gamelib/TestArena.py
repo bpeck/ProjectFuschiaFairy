@@ -33,7 +33,7 @@ class TestArena(Arena):
         screenW = float(screen.get_width())
         screenH = float(screen.get_height())
         
-        for i in range(100):
+        for i in range(40):
             # diameter
             size = minSize + random.random() * (maxSize - minSize)
             
@@ -65,6 +65,8 @@ class TestArena(Arena):
             e.arena = self
         
         self.keyListeners += [c, m]
+        
+        for e in self.entities: e.arena = self
     
     def getInitialEntities(self):
         return self.entities

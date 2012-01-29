@@ -35,6 +35,9 @@ class Vect2:
     def distance(self, v):
         return (v-self).magnitude()
     
+    def distance_squared(self, v):
+        return (v-self).magnitude_squared()
+    
     def normalize(self, length=1.0):
         return self/self.magnitude() * length
 

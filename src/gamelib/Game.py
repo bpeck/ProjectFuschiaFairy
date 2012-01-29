@@ -39,12 +39,13 @@ class Game(object):
         self.closest = {}
         
         # logic clock
-        self.tick_rate = 50
+        self.tick_rate = 30
         self.last_update = 0
         print 'Entering game loop'
         self.gameLoop()
     
     def gameLoop(self):
+        bg = pygame.image.load("data/Background.png")
         while not self.done:
             for e in pygame.event.get():
                 if e.type == QUIT:
@@ -57,6 +58,7 @@ class Game(object):
                         listener.processEvent(e)
 
             if self.last_update + self.tick_rate < get_ticks():
+                start_of_frame = get_ticks()
             	#self.screen.fill(self.BG_COLOR)
                 bg = pygame.image.load("data/Background.png")
                 self.screen.blit(bg,[0,0])
@@ -69,11 +71,12 @@ class Game(object):
                     self.currentArea.collisionDetect(entity, self.tick_rate)
                     entity.update(self.tick_rate)
                     entity.render(self.screen)
-                
+
                 # exert attract/repulse forces - this is shitty
                 #self.currentArea.doAccelerators()
                 
+                self.last_update = get_ticks()
                 
-                pygame.display.update()
+            pygame.display.update()
             
-            	self.last_update = get_ticks()
+            	
