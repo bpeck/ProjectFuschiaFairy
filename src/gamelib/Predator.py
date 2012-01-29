@@ -1,6 +1,11 @@
 from NPC import NPC
 from Vect2 import Vect2
-import pygame
+import pygame, time
+import Variables
+
+import Variables as Variables
+from Variables import *
+
 
 class Predator(NPC):
     
@@ -10,9 +15,14 @@ class Predator(NPC):
         self.image = self.origImage 
         self.name = 'Predator'
         self.lifeSpan = 10000
-        self.rotate = 0
+        self.birth = time.time()
+        self.rotate = 0.0
     
     def update(self, dT):
+        #slow die
+        if time.time() - self.birth > Variables.PredatorLS:
+            #begin death animation
+            x =1
         if not self.grabbedBy:
             NPC.update(self, dT)
             
