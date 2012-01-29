@@ -17,7 +17,7 @@ class TestArena(Arena):
     def __init__(self, screen, currentLevel):
         Arena.__init__(self)
         
-
+        currentLevel = 2
         self.entities = []
         self.keyListeners = []
         self.accelerators = []
